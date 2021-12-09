@@ -1,11 +1,5 @@
 #include "pipex.h"
 
-void ft_err(char *str)
-{
-    perror(str);
-    exit(EXIT_FAILURE);
-}
-
 char *fnd_path(char *cmd, char **envp)
 {
     char	**paths;
@@ -39,7 +33,10 @@ void child_pr(int fd1, char *argv, char **envp, int *pip)
     close(pip[0]);
     cmd = ft_split(argv, ' ');
     if (execve(fnd_path(cmd[0], envp), cmd, envp) == -1)
-        ft_err("Wrong cmd\n");
+    {   
+        write(2, "Command not found\n", 16);
+        exit(EXIT_FAILURE);
+    }
 }
 
 void parent_pr(int fd2, char *argv, char **envp, int *pip)
@@ -51,7 +48,10 @@ void parent_pr(int fd2, char *argv, char **envp, int *pip)
     close(pip[1]);
     cmd = ft_split(argv, ' ');
     if (execve(fnd_path(cmd[0], envp), cmd, envp) == -1)
-        ft_err("Wrong cmd\n");
+    {
+        write(2, "Command not found\n", 16);
+        exit(EXIT_FAILURE);
+    }
 }
 
 void pipex (int fd1, int fd2, char **argv, char **envp)
@@ -60,10 +60,10 @@ void pipex (int fd1, int fd2, char **argv, char **envp)
     int pid;
 
     if (pipe(pip) == -1)
-        ft_err("Pipe error\n");
+        write(2, "Pipe error\n", 10);
     pid = fork();
     if (pid == -1)
-        ft_err("Fork error\n");
+        write(2, "Fork error\n", 10);
     if (pid == 0)
         child_pr(fd1, argv[2], envp, pip);
     waitpid(pid, NULL, 0);
@@ -82,14 +82,12 @@ int main(int argc, char ** argv, char **envp)
         fd1 = open(argv[1], O_RDONLY);
         fd2 = open(argv[4], O_CREAT | O_RDWR | O_TRUNC);
         if (fd1 < 0 || fd2 < 0)
-            ft_err("Error open file\n");
+            write(2, "Error open file\n", 16);
         pipex(fd1, fd2, argv, envp);
         close(fd1);
         close(fd2);
     }
     else
-    {
-        ft_err("Wrong args\n");
-    }
+        write(2, "Need 4 arguments\n", 17);
     return 0;
 }
