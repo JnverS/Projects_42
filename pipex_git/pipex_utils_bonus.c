@@ -12,28 +12,26 @@
 
 #include "pipex.h"
 
-char	*fnd_path(char *cmd, char **envp)
+void	ft_wrong_arg(void)
 {
-	char	**paths;
-	char	*path;
-	int		i;
-	char	*part_path;
+	write(2, "Not enough arguments\n", 21);
+	exit(EXIT_SUCCESS);
+}
 
-	i = 0;
-	while (ft_strnstr(envp[i], "PATH", 4) == 0)
-		i++;
-	paths = ft_split(envp[i] + 5, ':');
-	i = 0;
-	while (paths[i])
-	{
-		part_path = ft_strjoin(paths[i], "/");
-		path = ft_strjoin(part_path, cmd);
-		free(part_path);
-		if (access(path, F_OK) == 0)
-			return (path);
-		i++;
-	}
-	return (0);
+int ft_open_file(char *argv, int i)
+{
+	int fd;
+
+	fd = 0;
+	if (i == 0)
+		fd = open(argv, O_RDWR | O_CREAT | O_APPEND, 0644);
+	if (i == 1)
+		fd = open(argv, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	else if (i == 2)
+		fd = open(argv, O_RDONLY);
+	if (fd < 0)
+		err("Can't open file\n");
+	return(fd);
 }
 
 int	get_next_line(char **line)

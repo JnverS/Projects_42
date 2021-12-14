@@ -14,7 +14,7 @@ NAME = pipex
 
 SRC = pipex.c pipex_utils.c
 
-SRC_B = pipex_bonus.c pipex_utils_bonus.c
+SRC_B = pipex_bonus.c pipex_utils_bonus.c pipex_utils.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -42,7 +42,7 @@ fclean : clean
 
 bonus :
 	@make -C $(LDIR)
-	gcc -c $(FLAGS) $(SRC_B) $(LDIR)
+	gcc -c $(FLAGS) $(SRC_B)
 	gcc $(OBJ_B) $(LFLAGS) -o $(NAME)
 
 re : fclean all
