@@ -1,62 +1,43 @@
 #include "../include/so_long.h"
 
-size_t	ft_strlen(const char *s)
+void error(int num)
 {
-	size_t	i;
-
-	if (s == NULL)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	if (num == 0)
+		write(2, "Error: unable to open map\n", 27);
+	if (num == 1)
+		write(2, "Error: incorrect map\n", 21);
+	if (num == 2)
+		write(2, "Error: map should be rectangular!\n", 34);
+	if (num == 3)
+		write(2, "Error: wrong map extension!\n", 28);
+	exit(EXIT_FAILURE);
 }
 
-char	*ft_strjoin(const char *s1, const char *s2)
+int	ft_strncmp(const char *str1, const char *str2, size_t n)
 {
-	int		lens1;
-	int		lens2;
-	char	*str;
-	int		i;
+	size_t			i;
+	unsigned char	tmp1;
+	unsigned char	tmp2;
 
 	i = 0;
-	if (!s1 && !s2)
-		return (NULL);
-	str = NULL;
-	lens1 = ft_strlen(s1);
-	lens2 = ft_strlen(s2);
-	str = (char *)malloc((lens1 + lens2 + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	while (i < lens1)
+	while (i < n && str1[i] && str2[i])
 	{
-		str[i] = s1[i];
+		if (str1[i] != str2[i])
+		{
+			tmp1 = (unsigned char) str1[i];
+			tmp2 = (unsigned char) str2[i];
+			return (tmp1 - tmp2);
+		}
 		i++;
 	}
-	lens2 = 0;
-	while (s2[lens2])
-		str[i++] = s2[lens2++];
-	str[i] = '\0';
-	return (str);
-}
-
-char	*ft_strdup(const char *str)
-{
-	char	*s;
-	int		len;
-
-	len = 0;
-	while (str[len])
-		len++;
-	s = (char *)malloc(len + 1 * sizeof(char));
-	len = 0;
-	if (!s)
-		return (NULL);
-	while (str[len])
+	if (i < n)
 	{
-		s[len] = str[len];
-		len++;
+		if (str1[i] != str2[i])
+		{
+			tmp1 = (unsigned char) str1[i];
+			tmp2 = (unsigned char) str2[i];
+			return (tmp1 - tmp2);
+		}
 	}
-	s[len] = '\0';
-	return (s);
+	return (0);
 }

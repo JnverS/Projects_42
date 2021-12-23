@@ -1,9 +1,9 @@
 NAME = so_long
 
 
-SRC = main.c solong_utils.csx
+SRC = main.c solong_utils.c get_next_line.c get_next_line_utils.c init.c validation.c 
 
-SRC_B = so_long_bonus.c 
+SRC_B = so_long_bonus.c
 
 SRCS = $(addprefix ./src/, $(SRC))
 
