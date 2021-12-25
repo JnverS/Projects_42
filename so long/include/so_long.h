@@ -20,8 +20,11 @@ typedef struct	s_map {
 typedef struct	s_display {
 	void	*mlx;
 	void	*win;
-	char 	**fon;
+	char 	**grass;
 	char	**player_img;
+	char	**coin;
+	char	**wall;
+	char	**exit;
 }				t_display;
 
 typedef struct  s_obj {
@@ -29,7 +32,14 @@ typedef struct  s_obj {
 	int		current_frame;
 	int		x;
 	int		y;
-}				t_player, *t_coins, *t_enemy;
+}				t_player, t_coins, *t_enemy;
+
+typedef struct	s_render {
+	t_display	*display;
+	t_map		*map;
+	t_player	*player;
+	t_coins		*coins;
+}				t_render;
 
 char	*ft_strdup(const char *str);
 char	*ft_strjoin(const char *s1, const char *s2);
