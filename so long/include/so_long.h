@@ -8,11 +8,20 @@
 
 #include <stdio.h>
 
+# define BUFFER_SIZE 4096
+# define PLAYER "./img/witch.xpm"
+# define BOT "./img/grass.xpm"
+# define WALL "./img/wall.xpm"
+# define COIN "./img/coin.xpm"
+# define EXIT "./img/boiler.xpm"
+
 typedef struct	s_map {
 	char	**arr;
 	int		column;
 	int		lines;
 	int		coins;
+	int 	coins_number;
+	int 	collect;
 	int		exit;
 	int		player;
 }				t_map;
@@ -32,7 +41,8 @@ typedef struct  s_obj {
 	int		current_frame;
 	int		x;
 	int		y;
-}				t_player, t_coins, *t_enemy;
+	int disabled;
+}				t_player, t_coins, t_enemy;
 
 typedef struct	s_render {
 	t_display	*display;
@@ -41,14 +51,15 @@ typedef struct	s_render {
 	t_coins		*coins;
 }				t_render;
 
-char	*ft_strdup(const char *str);
-char	*ft_strjoin(const char *s1, const char *s2);
 size_t	ft_strlen(const char *s);
-int		ft_strncmp(const char *str1, const char *str2, size_t n);
-char	*get_next_line(int fd);
 void	error(int num);
-void	open_map(char *argv, t_map *map);
-void	init_map_struct(t_map *map);
-void	map_to_arr(char *argv, t_map *map);
+void	valid_map(char *argv, t_render *render);
+void	init_struct(t_render *render);
+void	read_to_arr(char *argv, t_map *map);
+
+char	**ft_split(const char *str, char c, t_map *map);
+void	*ft_memcpy(void *dest, const void *s, size_t n);
+void	*ft_calloc(unsigned numelem, size_t sizelem);
+void	ft_bzero(void *s, size_t n);
 
 #endif

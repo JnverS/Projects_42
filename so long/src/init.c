@@ -1,37 +1,27 @@
 #include "../include/so_long.h"
 
-void	init_map_struct(t_map *map)
+void	init_struct(t_render *render)
 {
-	map->column = 0;
-	map->lines = 0;
-	map->arr = NULL;
-	map->coins = 0;
-	map->player = 0;
-	map->exit = 0;
+	render->map->collect = 0;
+	render->map->coins_number = 0;
 }
 
-void	map_to_arr(char *argv, t_map *map)
+void	read_to_arr(char *argv, t_map *map)
 {
 	char	*line;
 	int		fd;
-	int i;
+	char	buff[BUFFER_SIZE + 1];
+	int		r_b;
+	int i = 0;
 	int j;
 
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 		error(0);
-	map->arr = (char **)malloc(map->column * map->lines * sizeof(char));
-	if(!map)
-		perror("Map: ");
-	line = get_next_line(fd);
-	i = 0;
-	while(line)
-	{
-		map->arr[i] = ft_strdup(line);
-		free(line);
-		i++;
-		line = get_next_line(fd);
-	}
-	map->arr[i] = 0;
+	r_b = read(fd, buff, BUFFER_SIZE);
+	if(r_b < 0)
+		error(0);	
+	buff[r_b] = 0;
+	map->arr = ft_split(buff, '\n', map);
 	close(fd);
 }

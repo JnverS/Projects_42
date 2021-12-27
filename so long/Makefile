@@ -1,7 +1,7 @@
 NAME = so_long
 
 
-SRC = main.c solong_utils.c get_next_line.c get_next_line_utils.c init.c validation.c 
+SRC = main.c solong_utils.c solong_utils2.c solong_utils3.c init.c validation.c 
 
 SRC_B = so_long_bonus.c
 
@@ -29,8 +29,7 @@ clean :
 	@rm -f $(OBJ) $(OBJ_B)
 
 fclean : clean
-	@make fclean -C $(LDIR)
-	@rm -f $(NAME) $(OBJ_B)
+	@rm -f $(NAME)
 
 # bonus : $(OBJ_B)
 # 	@make -C $(LDIR)
