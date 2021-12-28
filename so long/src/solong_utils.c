@@ -13,12 +13,29 @@ void error(int num)
 	exit(EXIT_FAILURE);
 }
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
+// void	clear_all(t_render *render)
+// {
+// 	int	i;
+	
+// 	if (render)
+// 	{
+// 		if (render->map)
+// 		{
+// 			if (render->map->arr)
+// 			{
+// 				i = 0;
+// 				while (render->map->arr[i])
+// 				{
+// 					free(render->map->arr[i]);
+// 					render->map->arr[i] = NULL;
+// 					i++;
+// 				}
+// 				free (render->map->arr);
+// 			}
+// 			free(render->map);
+// 		}
+// 		if (render->coins)
+// 			free(render->coins);
+// 	free(render);
+// 	}
+// }

@@ -1,7 +1,7 @@
 NAME = so_long
 
 
-SRC = main.c solong_utils.c solong_utils2.c solong_utils3.c init.c validation.c 
+SRC = main.c solong_utils.c solong_utils2.c solong_utils3.c init.c validation.c ft_itoa.c
 
 SRC_B = so_long_bonus.c
 

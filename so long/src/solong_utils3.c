@@ -52,15 +52,16 @@ static int	count_words(const char *str, char c)
 	int	i;
 	int	nb_words;
 
+	if(!str)
+		return(0);
 	i = 0;
-	nb_words = 0;
+	nb_words = 1;
 	while (str[i])
 	{
-		if (str[i] != c)
+		if (str[i] == c)
 		{
 			nb_words++;
-			while (str[i] && str[i] != c)
-				i++;
+			i++;
 		}
 		i++;
 	}
