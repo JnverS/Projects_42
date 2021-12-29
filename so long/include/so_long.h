@@ -37,7 +37,7 @@ typedef struct	s_display {
 	void	*mlx;
 	void	*win;
 	char 	*grass;
-	char	*player_img[6];
+	void	*player_img[6];
 	char	*coin;
 	char	*wall;
 	char	*exit;

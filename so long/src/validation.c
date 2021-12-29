@@ -56,13 +56,14 @@ void	valid_map(char *argv, t_render *render)
 		error(2);
 	if (render->map->player != 1 || render->map->exit == 0 || render->map->coins == 0)
 		error(1);
+	return ;
 }
 
 void arr_to_struct(t_render *render)
 {
 	int i;
-	int j;
-
+	int j; 
+	
 	i = 0;
 	render->coins = malloc (sizeof(t_coins) * render->map->coins);
 	while(i < render->map->lines)
