@@ -1,4 +1,4 @@
-#include "../include/so_long.h"
+#include "../../include/so_long_bonus.h"
 
 void error(int num)
 {
@@ -36,6 +36,8 @@ void	clear_all(t_render *render)
 		}
 		if (render->coins)
 			free(render->coins);
+		if (render->foe)
+			free(render->foe);
 	free(render);
 	}
 }
@@ -43,6 +45,14 @@ void	clear_all(t_render *render)
 void end_game(t_display *display)
 {
 	write(1, "You WIN!\n", 9);
+	mlx_clear_window(display->mlx, display->win);
+	mlx_destroy_window(display->mlx, display->win);
+	exit(EXIT_SUCCESS);
+}
+
+void game_over(t_display *display)
+{
+	write(1, "You LOOOOOOOSE :P\n", 18);
 	mlx_clear_window(display->mlx, display->win);
 	mlx_destroy_window(display->mlx, display->win);
 	exit(EXIT_SUCCESS);

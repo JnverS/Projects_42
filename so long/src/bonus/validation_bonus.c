@@ -1,4 +1,4 @@
-#include "../include/so_long.h"
+#include "../../include/so_long_bonus.h"
 
 void	check_extension(char *argv)
 {
@@ -38,7 +38,9 @@ void	check_elem(char *line, t_render *render, int curr_line)
 			render->map->coins++;
 		else if (line[i] == 'E')
 			render->map->exit++;
-		else if (line[i] != 'P' && line[i] != 'C' && line[i] != 'E' && line[i] != '0' && line[i] != '1')
+		else if (line[i] == 'F')
+			render->map->foe++;
+		else if (line[i] != 'P' && line[i] != 'C' && line[i] != 'E' && line[i] != '0' && line[i] != '1' && line[i] != 'F')
 			error(1);
 		i++;
 	}
@@ -66,7 +68,7 @@ void	valid_map(char *argv, t_render *render)
 	}
 	if (render->map->column == render->map->lines)
 		error(2);
-	if (render->map->player != 1 || render->map->exit == 0 || render->map->coins == 0)
+	if (render->map->player != 1 || render->map->exit == 0 || render->map->coins == 0 || render->map->foe == 0)
 		error(1);
 	return ;
 }

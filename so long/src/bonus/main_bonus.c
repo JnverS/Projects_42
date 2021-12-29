@@ -1,4 +1,4 @@
-#include "../include/so_long.h"
+#include "../../include/so_long_bonus.h"
 
 void move(int x, int y, t_render* render)
 {
@@ -31,6 +31,13 @@ void	check_collision(t_render *render)
 		}
 		i++;
 	}
+	i = 0;
+	while (i < render->map->foe_number)
+    {
+        if (render->player->x == render->foe[i].x && render->player->y == render->foe[i].y)
+            game_over(render->display);
+        i++;
+    }
 }
 
 int	key_hook(int keycode, t_render *render)
@@ -94,6 +101,7 @@ int	main(int argc, char **argv)
 	render->player = &player;
 	render->map->collect = 0;
 	render->map->coins_number = 0;
+	render->map->foe_number = 0;
 	render->map->count_iter = 0;
 	game_start(render, argv[1]);
 }
