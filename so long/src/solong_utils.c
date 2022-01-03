@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   solong_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kdominic <kdominic@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/30 13:16:30 by kdominic          #+#    #+#             */
+/*   Updated: 2022/01/03 15:22:36 by kdominic         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 
-void error(int num)
+void	error(int num)
 {
 	if (num == 0)
 		write(2, "Error: unable to open map\n", 27);
@@ -13,34 +25,34 @@ void error(int num)
 	exit(EXIT_FAILURE);
 }
 
-void	clear_all(t_render *render)
+void	clear_all(t_game *game)
 {
 	int	i;
-	
-	if (render)
+
+	if (game)
 	{
-		if (render->map)
+		if (game->map)
 		{
-			if (render->map->arr)
+			if (game->map->arr)
 			{
 				i = 0;
-				while (render->map->arr[i])
+				while (game->map->arr[i])
 				{
-					free(render->map->arr[i]);
-					render->map->arr[i] = NULL;
+					free(game->map->arr[i]);
+					game->map->arr[i] = NULL;
 					i++;
 				}
-				free (render->map->arr);
+				free (game->map->arr);
 			}
-			free(render->map);
+			free(game->map);
 		}
-		if (render->coins)
-			free(render->coins);
-	free(render);
+		if (game->coins)
+			free(game->coins);
+		free(game);
 	}
 }
 
-void end_game(t_display *display)
+void	end_game(t_display *display)
 {
 	write(1, "You WIN!\n", 9);
 	mlx_clear_window(display->mlx, display->win);
@@ -50,9 +62,33 @@ void end_game(t_display *display)
 
 int	expose_hook(void *param)
 {
-	t_render *render;
+	t_game	*game;
 
-	render = (t_render *) param;
-	clear_all(render);
+	game = (t_game *) param;
+	clear_all(game);
 	exit(EXIT_SUCCESS);
+}
+
+void	check_len_str(char *buff)
+{
+	int	i;
+	int	count;
+	int	count2;
+
+	i = 0;
+	while (buff[i] != '\n')
+		i++;
+	count = i;
+	while (buff[i])
+	{
+		count2 = 0;
+		i++;
+		while (buff[i] != '\n' && buff[i] != '\0')
+		{
+			count2++;
+			i++;
+		}
+		if (count2 != count)
+			error(1);
+	}
 }

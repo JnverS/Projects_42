@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   solong_utils3.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kdominic <kdominic@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/30 13:16:36 by kdominic          #+#    #+#             */
+/*   Updated: 2022/01/03 14:43:39 by kdominic         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 
 static char	**free_tab(char **result)
@@ -52,8 +64,8 @@ static int	count_words(const char *str, char c)
 	int	i;
 	int	nb_words;
 
-	if(!str)
-		return(0);
+	if (!str)
+		return (0);
 	i = 0;
 	nb_words = 1;
 	while (str[i])

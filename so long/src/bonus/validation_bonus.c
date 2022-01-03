@@ -1,23 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validation_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kdominic <kdominic@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/30 13:16:20 by kdominic          #+#    #+#             */
+/*   Updated: 2022/01/03 19:02:21 by kdominic         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/so_long_bonus.h"
 
 void	check_extension(char *argv)
 {
-	int	i;
+	int		i;
+	int		j;
+	char	*ext;
 
-	i = 0;
-	while(argv[i] != '.')
-		i++;
-	i++;
-	if(!(argv[i] == 'b' && argv[i+1] == 'e' && argv[i+2] == 'r' && argv[i+3] == '\0'))
+	ext = ".ber";
+	i = ft_strlen(argv) - 1;
+	j = ft_strlen(ext) - 1;
+	if (j > i)
 		error(3);
+	while (j >= 0)
+	{
+		if (argv[i--] != ext[j--])
+			error(3);
+	}
 }
 
 void	check_first_last(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(line[i] != '\0')
+	while (line[i] != '\0')
 	{
 		if (line[i] != '1')
 			error(1);
@@ -25,50 +43,53 @@ void	check_first_last(char *line)
 	}
 }
 
-void	check_elem(char *line, t_render *render, int curr_line)
+void	check_elem(char *line, t_game *game, int curr_line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i] != '\0' )
 	{
 		if (line[i] == 'P')
-			render->map->player++;
+			game->map->player++;
 		else if (line[i] == 'C')
-			render->map->coins++;
+			game->map->coins++;
 		else if (line[i] == 'E')
-			render->map->exit++;
+			game->map->exit++;
 		else if (line[i] == 'F')
-			render->map->foe++;
-		else if (line[i] != 'P' && line[i] != 'C' && line[i] != 'E' && line[i] != '0' && line[i] != '1' && line[i] != 'F')
+			game->map->foe++;
+		else if (line[i] != 'P' && line[i] != 'C' && line[i] != 'E'
+			&& line[i] != '0' && line[i] != '1' && line[i] != 'F')
 			error(1);
 		i++;
 	}
 }
 
-void	valid_map(char *argv, t_render *render)
+void	valid_map(char *argv, t_game *game)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	render->map->column = ft_strlen(render->map->arr[0]) - 1;
-	while(render->map->arr[i])
+	game->map->column = ft_strlen(game->map->arr[0]) - 1;
+	while (game->map->arr[i])
 	{
 		if (i == 0)
-			check_first_last(render->map->arr[i]);
-		else if (i == render->map->lines)
-			check_first_last(render->map->arr[i]);
+			check_first_last(game->map->arr[i]);
+		else if (i == game->map->lines - 1)
+			check_first_last(game->map->arr[i]);
 		else
 		{
-			if (render->map->arr[i][0] != '1' || render->map->arr[i][render->map->column] != '1')
+			if (game->map->arr[i][0] != '1'
+				|| game->map->arr[i][game->map->column] != '1')
 				error(1);
 		}
-		check_elem(render->map->arr[i], render, i);
+		check_elem(game->map->arr[i], game, i);
 		i++;
 	}
-	if (render->map->column == render->map->lines)
+	if (game->map->column == game->map->lines)
 		error(2);
-	if (render->map->player != 1 || render->map->exit == 0 || render->map->coins == 0 || render->map->foe == 0)
+	if (game->map->player != 1 || game->map->exit == 0
+		|| game->map->coins == 0 || game->map->foe == 0)
 		error(1);
 	return ;
 }
@@ -85,10 +106,10 @@ void	read_to_arr(char *argv, t_map *map)
 	if (fd < 0)
 		error(0);
 	r_b = read(fd, buff, BUFFER_SIZE);
-	if(r_b < 0)
-		error(0);	
-		
+	if (r_b < 0)
+		error(0);
 	buff[r_b] = 0;
+	check_len_str(buff);
 	map->arr = ft_split(buff, '\n', map);
 	close(fd);
 }

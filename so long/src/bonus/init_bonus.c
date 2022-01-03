@@ -1,69 +1,80 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_bonus.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kdominic <kdominic@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/30 13:16:01 by kdominic          #+#    #+#             */
+/*   Updated: 2022/01/03 15:12:59 by kdominic         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/so_long_bonus.h"
 
-void	player_init(t_render *render, int i, int j)
+void	player_init(t_game *game, int i, int j)
 {
-	render->player->x = j;
-	render->player->y = i;
-	render->map->arr[i][j] = '0';
-	render->player->isLeft = 0;
+	game->player->x = j;
+	game->player->y = i;
+	game->map->arr[i][j] = '0';
+	game->player->isleft = 0;
 }
 
-void	foe_init(t_render *render, int i, int j)
+void	foe_init(t_game *game, int i, int j)
 {
-	render->foe[render->map->foe_number].isLeft = 0;
-	render->foe[render->map->foe_number].disabled = 0;
-	render->foe[render->map->foe_number].x = j;
-	render->foe[render->map->foe_number++].y = i;
-	render->map->arr[i][j] = '0';
+	game->foe[game->map->foe_number].isleft = 0;
+	game->foe[game->map->foe_number].disabled = 0;
+	game->foe[game->map->foe_number].x = j;
+	game->foe[game->map->foe_number++].y = i;
+	game->map->arr[i][j] = '0';
 }
 
-void	coins_init(t_render *render, int i, int j)
+void	coins_init(t_game *game, int i, int j)
 {
-	render->coins[render->map->coins_number].disabled = 0;
-	render->coins[render->map->coins_number].x = j;
-	render->coins[render->map->coins_number++].y = i;
-	render->map->arr[i][j] = '0';
+	game->coins[game->map->coins_number].disabled = 0;
+	game->coins[game->map->coins_number].x = j;
+	game->coins[game->map->coins_number++].y = i;
+	game->map->arr[i][j] = '0';
 }
 
-void	check_allocate(t_render *render)
+void	check_allocate(t_game *game)
 {
-	if (!render->coins)
+	if (!game->coins)
 	{
 		perror("coins ");
-		clear_all(render);
+		clear_all(game);
 		exit(EXIT_FAILURE);
 	}
-	else if (!render->foe)
+	else if (!game->foe)
 	{
 		perror("foe ");
-		clear_all(render);
+		clear_all(game);
 		exit(EXIT_FAILURE);
 	}
 }
 
-void arr_to_struct(t_render *render)
+void	arr_to_struct(t_game *game)
 {
-	int i;
-	int j; 
-	
+	int	i;
+	int	j;
+
 	i = 0;
-	render->coins = malloc (sizeof(t_coins) * render->map->coins);
-	render->foe = malloc (sizeof(t_foe) * render->map->foe);
-	check_allocate(render);
-	while(i < render->map->lines)
+	game->coins = malloc (sizeof(t_coins) * game->map->coins);
+	game->foe = malloc (sizeof(t_foe) * game->map->foe);
+	check_allocate(game);
+	while (i < game->map->lines)
 	{
 		j = 0;
-		while(j < render->map->column)
+		while (j < game->map->column)
 		{
-			if (render->map->arr[i][j] == 'P')
-				player_init(render, i, j);
-			else if (render->map->arr[i][j] == 'C')
-				coins_init(render, i, j);
-			else if (render->map->arr[i][j] == 'F')
-				foe_init(render, i, j);
+			if (game->map->arr[i][j] == 'P')
+				player_init(game, i, j);
+			else if (game->map->arr[i][j] == 'C')
+				coins_init(game, i, j);
+			else if (game->map->arr[i][j] == 'F')
+				foe_init(game, i, j);
 			j++;
 		}
 		i++;
 	}
 }
-
