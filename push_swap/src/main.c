@@ -3,29 +3,32 @@
 int	main(int argc, char **argv)
 {
 	int		i;
-	t_list	*stack_a;
+	t_list	*stack_a = NULL;
 
 	i = argc - 1;
 	while (i > 0)
 	{
-		void *c = &argv[i];
+		void *c = argv[i];
 		// printf("%s\n", argv[i]);
 		if (!stack_a) {
 			stack_a = ft_lstnew(c);//printf("hello\n");
 			}
 		else {
-			ft_lstadd_front(&stack_a, c);
-			// printf("hello2\n");
+			t_list *new = ft_lstnew(c);
+			ft_lstadd_front(&stack_a, new);
+			printf("elem was added successfully : %s\n", new->content);
 			}
 		i--;
-		// printf("%d hello3\n", i);
+		// printf("%d :\n", i);
 	}
 	// printf("hello4\n");
-	while (stack_a != NULL)
+	t_list* current = stack_a;
+	int k = 0;
+	while (current != NULL)
 	{
-		char *f = (char *)stack_a->content;
-		printf("%c\n", *f);
-		stack_a = stack_a->next;
+		printf("%d %s\n", k++, (char *)(current->content));
+		current = current->next;
+
 	}
 	return (0);
 }
