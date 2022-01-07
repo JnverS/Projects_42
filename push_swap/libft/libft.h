@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdominic <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kdominic <kdominic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 13:10:03 by kdominic          #+#    #+#             */
-/*   Updated: 2021/10/05 13:10:04 by kdominic         ###   ########.fr       */
+/*   Updated: 2022/01/07 20:52:35 by kdominic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ int		ft_tolower(int c);
 char	*ft_strchr(const char *str, int ch);
 char	*ft_strrchr(const char *str, int ch);
 int		ft_strncmp(const char *str1, const char *str2, size_t n);
+int		ft_strcmp(const char *str1, const char *str2);
 void	*ft_memchr(const void *arr, int c, size_t n);
 int		ft_memcmp(const void *arr1, const void *arr2, size_t n);
 char	*ft_strnstr(const char *dest, const char *src, size_t n);
 int		ft_atoi(const char *str);
+long	ft_long_atoi(const char *str, int *status);
 void	*ft_calloc(unsigned numelem, size_t sizelem);
 char	*ft_strdup(const char *str);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
