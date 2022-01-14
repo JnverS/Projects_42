@@ -2,14 +2,14 @@ NAME = push_swap
 
 INC = include/push_swap.h
 
-SRC = main.c function_sort.c validation.c
-SRC_ARR = main_arr.c
+SRC = main.c function_sort.c validation.c sort.c
+
 
 SRCS = $(addprefix ./src/, $(SRC))
-SRCS_ARR = $(addprefix ./src/, $(SRC_ARR))
+
 
 OBJ = ${SRCS:.c=.o}
-OBJ_ARR = ${SRCS_ARR:.c=.o}
+
 
 LDIR = libft/
 
@@ -20,21 +20,16 @@ LFLAGS = -L libft/ -lft
 all : $(NAME)
 
 $(NAME) : $(OBJ) $(INC)
-	@make -C $(LDIR)
 	@make bonus -C $(LDIR)
-	gcc -o $(NAME) $(OBJ) $(FLAGS) $(LFLAGS) -I $(INC)
-
-arr : $(OBJ_ARR) $(INC)
-	@make -C $(LDIR)
-	@make bonus -C $(LDIR)
-	gcc -o $(NAME) $(OBJ_ARR) $(FLAGS) $(LFLAGS) -I $(INC)
+	gcc $(FLAGS) -o $(NAME) $(OBJ) $(LFLAGS) -I $(INC)
 
 clean :
-	@make fclean -C $(LDIR)
 	@rm -f $(OBJ) $(OBJ_ARR)
+	@make clean -C $(LDIR)
 
 fclean : clean
 	@rm -f $(NAME)
+	@make fclean -C $(LDIR)
 
 bonus : $(OBJ_B) $(INC_B)
 	@make -C $(LDIR)

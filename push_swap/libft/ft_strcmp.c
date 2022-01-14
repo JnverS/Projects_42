@@ -6,7 +6,7 @@
 /*   By: kdominic <kdominic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 11:39:46 by kdominic          #+#    #+#             */
-/*   Updated: 2022/01/07 20:58:00 by kdominic         ###   ########.fr       */
+/*   Updated: 2022/01/10 16:30:03 by kdominic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_strcmp(const char *str1, const char *str2)
 	unsigned char	tmp2;
 
 	i = 0;
-	while (str1[i] && str2[i])
+	while (str1[i] || str2[i])
 	{
 		if (str1[i] != str2[i])
 		{

@@ -6,7 +6,7 @@
 /*   By: kdominic <kdominic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 13:10:03 by kdominic          #+#    #+#             */
-/*   Updated: 2022/01/07 20:52:35 by kdominic         ###   ########.fr       */
+/*   Updated: 2022/01/13 14:41:00 by kdominic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@
 
 typedef struct s_list
 {
-	void			*content;
+	void	*content;
+	int		index;
+	int		flag;
+	int		score;
 	struct s_list	*next;
 }	t_list;
 

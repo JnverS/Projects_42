@@ -6,7 +6,7 @@
 #    By: kdominic <kdominic@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/08 15:12:21 by kdominic          #+#    #+#              #
-#    Updated: 2022/01/07 20:52:23 by kdominic         ###   ########.fr        #
+#    Updated: 2022/01/09 16:23:08 by kdominic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,9 +43,8 @@ $(NAME) : $(OBJ)
 %.o : %.c
 	gcc $(FLAGS) -c $< -o $@
 
-bonus :
-	@make OBJ="$(OBJ_B)" all
-
+bonus : $(OBJ) $(OBJ_B)
+	ar rcs $(NAME) $?
 clean :
 	@rm -f $(OBJ) $(OBJ_B)
 

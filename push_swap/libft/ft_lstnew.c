@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdominic <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kdominic <kdominic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 14:58:51 by kdominic          #+#    #+#             */
-/*   Updated: 2021/10/14 14:58:51 by kdominic         ###   ########.fr       */
+/*   Updated: 2022/01/13 14:41:43 by kdominic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,8 @@ t_list	*ft_lstnew(void *content)
 		return (NULL);
 	c->content = content;
 	c->next = NULL;
+	c->index = -1;
+	c->flag = -1;
+	c->score = -1;
 	return (c);
 }
