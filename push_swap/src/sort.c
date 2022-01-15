@@ -105,7 +105,7 @@ void	rotate(t_list **stack_a, t_list **stack_b, int max)
 	t_list	*current;
 	int	 	i;
 
-	printf("%d\n", max);
+	// printf("%d\n", max);
 	i = max + 1;
 	current = *stack_a;
 	while (i > 3)
@@ -131,6 +131,7 @@ int	calc_score_a(t_list **stack_a, int index)
 	int		i;
 
 	current = *stack_a;
+	i = 0;
 	while (current != NULL)
 	{
 		if (current->index < index)
@@ -138,7 +139,7 @@ int	calc_score_a(t_list **stack_a, int index)
 		current = current->next;
 	}
 	if (ft_lstsize(*stack_a) / 2 < i)
-		i = ft_lstsize(*stack_a) / 2;
+		i = i - ft_lstsize(*stack_a) / 2;
 	return (i);
 }
 
@@ -172,23 +173,66 @@ void	calc_score(t_list **stack_a, t_list **stack_b)
 	}
 }
 
-void	rotate_to_a(t_list **stack_a, t_list **stack_b, int i)
+void	fnd_min_score(t_list **stack_b)
 {
+	int	i;
 	t_list	*current;
+	t_list	*min;
 
 	current = *stack_b;
-	while (i > 0)
+	min = *stack_b;
+	i = 0;
+	while (current != NULL)
 	{
-		if (current->flag == 1)
-		{
+		if (current->score < min->score)
+			min = current;
+		current = current->next;
+	}
+	current = *stack_b;
+	while (current->index != min->index)
+	{
+		current = current->next;
+		i++;
+	}
+	if (i > (ft_lstsize(*stack_b) / 2))
+		while (ft_lstsize(*stack_b) - i++ > 0)
+			rrb(stack_b);
+	else
+		while (i-- > 0)
 			rb(stack_b);
-		}
+}
+
+void	rotate_to_a(t_list **stack_a, t_list **stack_b)
+{
+	t_list	*current;
+	t_list	*current_a;
+	int i;
+
+	i = 0;
+	current = *stack_b;
+	while (current != NULL)
+	{	
+		current_a = *stack_a;
+		fnd_min_score(stack_b);
+		i = current->score;
+		// printf("%d %d %d\n", current->index, (*stack_a)->index, ft_lstlast(current_a)->index);
+		if (current->index < (*stack_a)->index)
+		{	if (current->index > ft_lstlast(current_a)->index)
+				pa(stack_a, stack_b);}
 		else
 		{
+			if (i < ft_lstsize(*stack_a) / 2)
+				while (i-- > 1)
+					ra(stack_a);
+			else
+				while (i-- > 1)
+					rra(stack_a);
 			pa(stack_a, stack_b);
-			i--;
 		}
+
+		show_list(stack_a);
 		current = *stack_b;
+		calc_score(stack_a, stack_b);
 	}
 }
 

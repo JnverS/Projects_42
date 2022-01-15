@@ -56,7 +56,7 @@ int	main(int argc, char **argv)
 		calc_score(&stack_a, &stack_b);
 		// while (ft_lstsize(stack_b) > 0)
 		// {
-		// 	rotate_to_a(&stack_a, &stack_b, markup_a(&stack_b, sr_arifm(&stack_b)));
+			rotate_to_a(&stack_a, &stack_b);
 		// }
 		printf("\033[01;38;05;226m""--------------- stack_a ---------------""\033[m\n");
 		show_list(&stack_a);
