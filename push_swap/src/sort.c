@@ -6,13 +6,13 @@
 /*   By: kdominic <kdominic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 16:29:34 by kdominic          #+#    #+#             */
-/*   Updated: 2022/01/14 16:42:40 by kdominic         ###   ########.fr       */
+/*   Updated: 2022/01/18 18:09:13 by kdominic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-void	fnd_maxmin(t_list *stack_a, int *min_ind, int *max_ind)
+void	markup(t_list *stack_a, int *min_ind, int *max_ind)
 {
 	int		max;
 	int		min;
@@ -56,39 +56,88 @@ t_list	*fnd_elem(t_list **stack_a, int *r, int index)
 	return(current);
 }
 
-// void	find_elem(t_list **stack_b, int size, int index)
-// {
-// 	int	i;
-// 	t_list	*current;
+void	find_0_elem(t_list **stack_a, int size, int index)
+{
+	int	i;
+	t_list	*current;
 
-// 	current = *stack_b;
-// 	i = 0;
-// 	while (current->index != index)
-// 	{
-// 		current = current->next;
-// 		i++;
-// 	}
-// 	if (i > (size / 2))
-// 		while (size - i++ > 0)
-// 			rrb(stack_b);
-// 	else
-// 		while (i-- > 0)
-// 			rb(stack_b);
-// }
+	current = *stack_a;
+	i = 0;
+	while (current->index != index)
+	{
+		current = current->next;
+		i++;
+	}
+	if (i > (size / 2))
+		while (size - i++ > 0)
+			rra(stack_a);
+	else
+		while (i-- > 0)
+			ra(stack_a);
+}
 
-int	check_sort(t_list **stack_a, t_list *markup_head)
+int	find_elem(t_list **stack_a, int size, int index)
+{
+	int	i;
+	t_list	*current;
+
+	current = *stack_a;
+	i = 0;
+	while (current->index != index)
+	{
+		current = current->next;
+		i++;
+	}
+	// printf("a : %d", i);
+	return (i);
+	// if (i > (size / 2))
+	// 	while (size - i++ > 0)
+	// 		rra(stack_a);
+	// else
+	// 	while (i-- > 0)
+	// 		ra(stack_a);
+}
+
+int	find_elem_inb(t_list **stack_b, int size, int index)
+{
+	int	i;
+	t_list	*current;
+
+	current = *stack_b;
+	i = 0;
+	while (current->index != index)
+	{
+		current = current->next;
+		i++;
+	}
+	// printf("b : %d", i);
+	return (i);
+	// if (i > (size / 2))
+	// 	while (size - i++ > 0)
+	// 		rrb(stack_b);
+	// else
+	// 	while (i-- > 0)
+	// 		rb(stack_b);
+}
+
+int	check_sort(t_list **stack_a, int max)
 {
 	t_list	*current;
+	t_list	*markup_head;
 	int		i;
 
 	i = 0;
-	current = *stack_a;
+	find_0_elem(stack_a, ft_lstsize(*stack_a), 0);
+	current = (*stack_a)->next;
+	markup_head = (*stack_a);
+	markup_head->flag = 0;
 	while (current != NULL)
 	{
-		if (current->index == markup_head->index + 1 || current->index == 0)
+		// printf("%d %d\n", current->index, markup_head->index);
+		if (current->index == markup_head->index + 1)
 		{
 			current->flag = 0;
-			markup_head = current;
+				markup_head = current;
 		}
 		else
 		{
@@ -100,28 +149,27 @@ int	check_sort(t_list **stack_a, t_list *markup_head)
 	return (i);
 }
 
-void	rotate(t_list **stack_a, t_list **stack_b, int max)
+void	rotate(t_list **stack_a, t_list **stack_b, int max, int k)
 {
 	t_list	*current;
-	int	 	i;
 
 	// printf("%d\n", max);
-	i = max + 1;
 	current = *stack_a;
-	while (i > 3)
+	while (k > 0)
 	{
-		if (current->index != 0 && current->index != max / 2 && current->index != max)
+		if (current->flag == 1)
 		{
 			pb(stack_a, stack_b);
 			if (current->index > max / 2)
 				rb(stack_b);
-			i--;
+			k--;
 		}
 		else
 		{
 			ra(stack_a);
 		}
 		current = *stack_a;
+		// debug_print(stack_a, stack_b);
 	}
 }
 
@@ -173,7 +221,7 @@ void	calc_score(t_list **stack_a, t_list **stack_b)
 	}
 }
 
-void	fnd_min_score(t_list **stack_b)
+int	fnd_min_score(t_list **stack_b)
 {
 	int	i;
 	t_list	*current;
@@ -184,55 +232,111 @@ void	fnd_min_score(t_list **stack_b)
 	i = 0;
 	while (current != NULL)
 	{
-		if (current->score < min->score)
+		if (current->score <= min->score)
 			min = current;
 		current = current->next;
 	}
 	current = *stack_b;
-	while (current->index != min->index)
+	while (current->index != min->index && current != NULL)
 	{
 		current = current->next;
 		i++;
 	}
-	if (i > (ft_lstsize(*stack_b) / 2))
-		while (ft_lstsize(*stack_b) - i++ > 0)
-			rrb(stack_b);
-	else
-		while (i-- > 0)
-			rb(stack_b);
+	return (i);
+	// if (i > (ft_lstsize(*stack_b) / 2))
+	// 	while (ft_lstsize(*stack_b) - i++ > 0)
+	// 		rrb(stack_b);
+	// else
+	// 	while (i-- > 0)
+	// 		rb(stack_b);
 }
+
+void	start_rr(t_list **stack_a, t_list **stack_b, int *i, int *j)
+{
+	// printf("%d %d\n", *i, *j);
+	if (i > j)
+	{
+		while ((*j)-- > 0)
+		{
+			(*i)--;
+			rr(stack_a, stack_b);
+	// debug_print(stack_a, stack_b);
+		}
+	}
+	else if (i < j)
+	{
+		while ((*i)-- > 0)
+		{
+			(*j)--;
+			rr(stack_a, stack_b);
+		}
+	}
+}
+
 
 void	rotate_to_a(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*current;
 	t_list	*current_a;
 	int i;
+	int j;
 
-	i = 0;
+	j = 0;
 	current = *stack_b;
-	while (current != NULL)
-	{	
+	while (*stack_b != NULL)
+	{
+		i = 0;
 		current_a = *stack_a;
-		fnd_min_score(stack_b);
-		i = current->score;
-		// printf("%d %d %d\n", current->index, (*stack_a)->index, ft_lstlast(current_a)->index);
-		if (current->index < (*stack_a)->index)
-		{	if (current->index > ft_lstlast(current_a)->index)
-				pa(stack_a, stack_b);}
+		// debug_print(stack_a, stack_b);
+		j = fnd_min_score(stack_b);
+		if (j > (ft_lstsize(*stack_b) / 2))
+			while (ft_lstsize(*stack_b) - j++ > 0)
+				rrb(stack_b);
 		else
+			while (j-- > 0)
+				rb(stack_b);
+		current = *stack_b;
+
+		if (current->index < (*stack_a)->index)
 		{
-			if (i < ft_lstsize(*stack_a) / 2)
-				while (i-- > 1)
-					ra(stack_a);
-			else
-				while (i-- > 1)
+			if (current->index < ft_lstlast(*stack_a)->index)
+				while (current != NULL && current->index < ft_lstlast(*stack_a)->index)
 					rra(stack_a);
 			pa(stack_a, stack_b);
 		}
-
-		show_list(stack_a);
-		current = *stack_b;
+		else
+		{
+			while(current != NULL && current->index > (*stack_a)->index)
+			// {	debug_print(stack_a, stack_b);
+				ra(stack_a);
+			pa(stack_a, stack_b);
+		}
+		// printf("%d %d\n", i, j);
+		// show_list(stack_a);
+		// show_list(stack_b);
 		calc_score(stack_a, stack_b);
 	}
 }
 
+void	sort_minimal_elem(t_list **stack_a)
+{
+	t_list *current;
+
+	current = *stack_a;
+	if (current->index == 0 && current->next->index == 2)
+	{
+		sa(stack_a);
+		ra(stack_a);
+	}
+	else if (current->index == 1 && current->next->index == 0 && current->next->next->index == 2)
+		sa(stack_a);
+	else if (current->index == 1 && current->next->index == 2 && current->next->next->index == 0)
+		rra(stack_a);
+	else if (current->index == 2 && current->next->index == 0 && current->next->next->index == 1)
+		ra(stack_a);
+	else if (current->index == 2 && current->next->index == 1 && current->next->next->index == 0)
+	{
+		sa(stack_a);
+		rra(stack_a);
+	}
+}

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   function_sort.c                                    :+:      :+:    :+:   */
+/*   functions.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdominic <kdominic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 15:42:24 by kdominic          #+#    #+#             */
-/*   Updated: 2022/01/12 13:48:20 by kdominic         ###   ########.fr       */
+/*   Updated: 2022/01/18 13:35:14 by kdominic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,55 @@
 
 void	sa(t_list **stack_a)
 {
-	t_list *tmp = NULL;
+	t_list	*tmp_a;
+	t_list	*tmp_b;
 
 	if(ft_lstsize(*stack_a) > 1)
 	{
-		tmp = (*stack_a)->content;
-		(*stack_a)->content = (*stack_a)->next->content;
-		(*stack_a)->next->content = tmp;
+		tmp_a = (*stack_a);
+		tmp_b = (*stack_a)->next;
+		(*stack_a) = tmp_b;
+		tmp_a->next = (*stack_a)->next;
+		(*stack_a)->next = tmp_a;
 		write(1, "sa\n", 3);
 	}
 }
 
 void	sb(t_list **stack_b)
 {
-	t_list *tmp = NULL;
+	t_list	*tmp_a;
+	t_list	*tmp_b;
 
 	if(ft_lstsize(*stack_b) > 1)
 	{
-		tmp = (*stack_b)->content;
-		(*stack_b)->content = (*stack_b)->next->content;
-		(*stack_b)->next->content = tmp;
+		tmp_a = (*stack_b);
+		tmp_b = (*stack_b)->next;
+		(*stack_b) = tmp_b;
+		tmp_a->next = (*stack_b)->next;
+		(*stack_b)->next = tmp_a;
 		write(1, "sb\n", 3);
 	}
 }
 
 void	ss(t_list **stack_a, t_list **stack_b)
 {
-	t_list *tmp = NULL;
+	t_list	*tmp_a;
+	t_list	*tmp_b;
+
 
 	if(ft_lstsize(*stack_a) > 1 && ft_lstsize(*stack_b) > 1)
 	{
-		tmp = (*stack_a)->content;
-		(*stack_a)->content = (*stack_a)->next->content;
-		(*stack_a)->next->content = tmp;
-		tmp = (*stack_b)->content;
-		(*stack_b)->content = (*stack_b)->next->content;
-		(*stack_b)->next->content = tmp;
+		tmp_a = (*stack_a);
+		tmp_b = (*stack_a)->next;
+		(*stack_a) = tmp_b;
+		tmp_a->next = (*stack_a)->next;
+		(*stack_a)->next = tmp_a;
+		tmp_a = (*stack_b);
+		tmp_b = (*stack_b)->next;
+		(*stack_b) = tmp_b;
+		tmp_a->next = (*stack_b)->next;
+		(*stack_b)->next = tmp_a;
+		write(1, "sb\n", 3);
 	}
 	write(1, "ss\n", 3);
 }
