@@ -2,7 +2,9 @@ NAME = push_swap
 
 INC = include/push_swap.h
 
-SRC = main.c functions.c validation.c sort.c
+SRC = main.c movement_1.c movement_2.c movement_3.c \
+		validation.c sort.c utils.c calc_score.c \
+		fnd_elem.c swaps.c min_sort.c
 
 
 SRCS = $(addprefix ./src/, $(SRC))

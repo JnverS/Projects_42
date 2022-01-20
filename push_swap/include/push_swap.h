@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kdominic <kdominic@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/20 15:48:24 by kdominic          #+#    #+#             */
+/*   Updated: 2022/01/20 18:45:06 by kdominic         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -18,20 +30,26 @@ void	rra(t_list **stack_a);
 void	rrb(t_list **stack_b);
 void	rrr(t_list **stack_a, t_list **stack_b);
 
-void	markup(t_list *stack_a, int *min_ind, int *max_ind);
-int		check_sort(t_list **stack_a, int max);
-t_list	*fnd_elem(t_list **stack_a, int *r, int index);
-void	rotate(t_list **stack_a, t_list **stack_b, int max, int k);
-void	rotate_to_a(t_list **stack_a, t_list **stack_b);
-void	calc_score(t_list **stack_a, t_list **stack_b);
-int	find_elem(t_list **stack_a, int size, int index);
-void	sort_minimal_elem(t_list **stack_a);
+void	fnd_maxmin(t_list *stack_a, int *min_ind, int *max_ind);
+int		give_flags(t_list **stack_a);
+void	rotate_to_a(t_list **stack_a, t_list **stack_b, int max_ind);
+void	rotate(t_list **stack_a, t_list **stack_b, int max);
 
-int	find_elem_inb(t_list **stack_b, int size, int index);
-void	debug_print(t_list **stack_a, t_list **stack_b);
-void	find_0_elem(t_list **stack_a, int size, int index);
+void	clear_stack(t_list **stack);
+int		ft_abs(int num);
+void	sort_minimal_elem(t_list **stack_a);
+void	fnd_min_index(t_list **stack_b);
+void	sort_min_stack(t_list **stack_a, t_list **stack_b);
+void	do_rotations(t_list **stack_a, t_list **stack_b, int a, int b);
+void	do_solo_rotate(t_list **stack_a, t_list **stack_b, int a, int b);
+t_list	*fnd_elem(t_list **stack_a, int index);
+void	find_elem(t_list **stack_a, int size, int index);
+t_list	*fnd_min_score(t_list **stack_b, int *count);
+void	calc_score(t_list **stack_a, t_list **stack_b, int max_ind);
+int		calc_score_a(t_list **stack_a, int index, int max_ind);
+void	check_dub(t_list *stack_a);
 
 void	show_list(t_list **stack);
-
+void	debug_print(t_list **stack_a, t_list **stack_b);
 
 #endif

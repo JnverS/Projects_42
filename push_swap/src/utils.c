@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdominic <kdominic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/06 11:39:46 by kdominic          #+#    #+#             */
-/*   Updated: 2022/01/10 16:30:03 by kdominic         ###   ########.fr       */
+/*   Created: 2022/01/20 11:33:15 by kdominic          #+#    #+#             */
+/*   Updated: 2022/01/20 16:03:42 by kdominic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/push_swap.h"
 
-int	ft_strcmp(const char *str1, const char *str2)
+int	ft_abs(int num)
 {
-	size_t			i;
-	unsigned char	tmp1;
-	unsigned char	tmp2;
+	if (num < 0)
+		num *= (-1);
+	return (num);
+}
 
-	i = 0;
-	while (str1[i] || str2[i])
+void	clear_stack(t_list **stack)
+{
+	t_list	*current;
+	t_list	*tmp;
+
+	if (*stack == NULL)
+		return ;
+	current = (*stack);
+	while (current != NULL)
 	{
-		if (str1[i] != str2[i])
-		{
-			tmp1 = (unsigned char) str1[i];
-			tmp2 = (unsigned char) str2[i];
-			return (tmp1 - tmp2);
-		}
-		i++;
+		tmp = current->next;
+		free(current);
+		current = tmp;
 	}
-	return (0);
+	free(current);
+	*stack = NULL;
 }
