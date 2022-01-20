@@ -6,7 +6,7 @@
 /*   By: kdominic <kdominic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 15:48:24 by kdominic          #+#    #+#             */
-/*   Updated: 2022/01/20 18:45:06 by kdominic         ###   ########.fr       */
+/*   Updated: 2022/01/20 19:56:23 by kdominic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,5 @@ t_list	*fnd_min_score(t_list **stack_b, int *count);
 void	calc_score(t_list **stack_a, t_list **stack_b, int max_ind);
 int		calc_score_a(t_list **stack_a, int index, int max_ind);
 void	check_dub(t_list *stack_a);
-
-void	show_list(t_list **stack);
-void	debug_print(t_list **stack_a, t_list **stack_b);
 
 #endif
