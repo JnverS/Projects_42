@@ -6,7 +6,7 @@
 /*   By: kdominic <kdominic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 15:42:35 by kdominic          #+#    #+#             */
-/*   Updated: 2022/01/20 19:20:50 by kdominic         ###   ########.fr       */
+/*   Updated: 2022/01/21 20:09:07 by kdominic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	make_list(t_list **stack_a, int count_elem, char **argv, int max_ind)
 	i = 0;
 	while (count_elem > 0)
 	{
+		new = ft_lstnew((int *)ft_long_atoi(argv[count_elem], &status));
+		ft_lstadd_front(stack_a, new);
 		if (status)
 		{
 			clear_stack(stack_a);
 			write(2, "Error\n", 6);
 			exit(EXIT_FAILURE);
 		}
-		new = ft_lstnew((int *)ft_long_atoi(argv[count_elem], &status));
-		ft_lstadd_front(stack_a, new);
 		count_elem--;
 	}
 	check_dub(*stack_a);

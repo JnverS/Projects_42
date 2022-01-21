@@ -7,24 +7,24 @@ ENDCOLOR="\033[0m"
 x=1
 k=$1
 cou=0;
-retry=100
+retry=10
 max=0;
 min=90000000000
 while [ $x -le $retry ]
 do
 	ARG=$(python3.7 get_random.py $k)
-	./push_swap $ARG | ./checker_Mac $ARG
-	# cur=$(./push_swap $ARG | wc -l)
-	# let cou=$(($cou+$cur))
-	# if [ $cur -gt $max ]; then
-	# max=$cur
-	# fi
-	# if [ $cur -le $min ]; then
-	# min=$cur
-	# fi
+	./push_swap $ARG | ./checker $ARG
+	cur=$(./push_swap $ARG | wc -l)
+	let cou=$(($cou+$cur))
+	if [ $cur -gt $max ]; then
+	max=$cur
+	fi
+	if [ $cur -le $min ]; then
+	min=$cur
+	fi
 	x=$(( $x + 1 ))
 done
-# cou=$(($cou/$retry));
-# echo -e '| '$BLACKBACK'max -> '$RED $max$ENDCOLOR '\t|'
-# echo -e '| '$BLACKBACK'avr -> '$YELLOW $cou$ENDCOLOR '\t|'
-# echo -e '| '$BLACKBACK'min -> '$GREEN $min$ENDCOLOR '\t|'
+cou=$(($cou/$retry));
+echo -e '| '$BLACKBACK'max -> '$RED $max$ENDCOLOR '\t|'
+echo -e '| '$BLACKBACK'avr -> '$YELLOW $cou$ENDCOLOR '\t|'
+echo -e '| '$BLACKBACK'min -> '$GREEN $min$ENDCOLOR '\t|'

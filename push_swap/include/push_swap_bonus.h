@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   push_swap_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdominic <kdominic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/20 15:48:24 by kdominic          #+#    #+#             */
-/*   Updated: 2022/01/21 15:43:31 by kdominic         ###   ########.fr       */
+/*   Created: 2022/01/21 13:21:26 by kdominic          #+#    #+#             */
+/*   Updated: 2022/01/21 16:06:13 by kdominic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef PUSH_SWAP_BONUS_H
+# define PUSH_SWAP_BONUS_H
 
 # include "../libft/libft.h"
+# include "get_next_line.h"
 
 # include <stdio.h>
 
@@ -30,23 +31,8 @@ void	rra(t_list **stack_a);
 void	rrb(t_list **stack_b);
 void	rrr(t_list **stack_a, t_list **stack_b);
 
-void	fnd_maxmin(t_list *stack_a, int *min_ind, int *max_ind);
-int		give_flags(t_list **stack_a);
-void	rotate_to_a(t_list **stack_a, t_list **stack_b, int max_ind);
-void	rotate(t_list **stack_a, t_list **stack_b, int max);
-
 void	clear_stack(t_list **stack);
-int		ft_abs(int num);
-void	sort_minimal_elem(t_list **stack_a);
-void	fnd_min_index(t_list **stack_b);
-void	sort_min_stack(t_list **stack_a, t_list **stack_b);
-void	do_rotations(t_list **stack_a, t_list **stack_b, int a, int b);
-void	do_solo_rotate(t_list **stack_a, t_list **stack_b, int a, int b);
-t_list	*fnd_elem(t_list **stack_a, int index);
-void	find_elem(t_list **stack_a, int size, int index);
-t_list	*fnd_min_score(t_list **stack_b, int *count);
-void	calc_score(t_list **stack_a, t_list **stack_b, int max_ind);
-int		calc_score_a(t_list **stack_a, int index, int max_ind);
 void	check_dub(t_list *stack_a);
+void	ft_error(t_list **stack_a, t_list **stack_b);
 
 #endif

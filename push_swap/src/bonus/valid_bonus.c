@@ -1,18 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validation.c                                       :+:      :+:    :+:   */
+/*   valid_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdominic <kdominic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 15:42:31 by kdominic          #+#    #+#             */
-/*   Updated: 2022/01/21 15:43:38 by kdominic         ###   ########.fr       */
+/*   Updated: 2022/01/21 16:06:00 by kdominic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
+#include "../../include/push_swap_bonus.h"
 
-void	check_dub_prev(char **argv)
+void	clear_stack(t_list **stack)
+{
+	t_list	*current;
+	t_list	*tmp;
+
+	if (*stack == NULL)
+		return ;
+	current = (*stack);
+	while (current != NULL)
+	{
+		tmp = current->next;
+		free(current);
+		current = tmp;
+	}
+	free(current);
+	*stack = NULL;
+}
+
+void	check_dubl(char **argv)
 {
 	int	i;
 	int	j;
@@ -79,5 +97,13 @@ void	validation(int argc, char **argv)
 		}
 		i++;
 	}
-	check_dub_prev(argv);
+	check_dubl(argv);
+}
+
+void	ft_error(t_list **stack_a, t_list **stack_b)
+{
+	clear_stack(stack_a);
+	clear_stack(stack_b);
+	write(2, "Error\n", 6);
+	exit(EXIT_FAILURE);
 }
