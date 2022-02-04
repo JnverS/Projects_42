@@ -80,7 +80,7 @@ int	init_data(char **argv, t_data *data, int argc)
 		data->time_to_eat = ft_atoi(argv[3]);
 		data->time_to_sleep = ft_atoi(argv[4]);
 		data->num_eat = -1;
-		data->dead = 0;
+		data->died = 0;
 		data->all_create = 0;
 		pthread_mutex_init(&data->writing, NULL);
 		if (argc == 6)

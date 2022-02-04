@@ -40,7 +40,7 @@ typedef struct s_data
 	int			time_to_eat;
 	int			time_to_sleep;
 	int			num_eat;
-	int			dead;
+	int			died;
 	int			all_create;
 	long int	start;
 	pthread_mutex_t writing;
@@ -59,4 +59,9 @@ void	ft_usleep(int	time_ms);
 t_philo	*new_philo(t_data *data);
 void add_philo(t_philo **philo, t_data *data);
 int	enough_dinner(t_philo *philo);
+
+void    taking_forks(t_philo *philo);
+void	eating(t_philo *philo);
+void	sleeping(t_philo *philo);
+void	thinking(t_philo *philo);
 #endif

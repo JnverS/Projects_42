@@ -26,7 +26,7 @@ OBJ = ${SRCS:.c=.o}
 
 OBJ_B = ${SRCS_B:.c=.o}
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -g -fsanitize=thread -Wall -Wextra -Werror
 
 all : $(NAME)
 
