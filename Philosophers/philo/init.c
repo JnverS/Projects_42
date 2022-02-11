@@ -6,7 +6,7 @@
 /*   By: kdominic <kdominic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 15:36:49 by kdominic          #+#    #+#             */
-/*   Updated: 2022/02/04 12:25:47 by kdominic         ###   ########.fr       */
+/*   Updated: 2022/02/10 15:39:28 by kdominic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 long	current_time(void)
 {
-	long	time;
+	long			time;
 	struct timeval	current;
 
 	gettimeofday(&current, NULL);
@@ -44,7 +44,7 @@ int	is_digit(char **argv)
 
 int	init_philo(t_philo *philo, t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->count_ph)
@@ -58,7 +58,7 @@ int	init_philo(t_philo *philo, t_data *data)
 		pthread_mutex_init(&philo[i].l_fork, NULL);
 		i++;
 	}
-	i =  0;
+	i = 0;
 	while (i < data->count_ph)
 	{
 		if (i == data->count_ph - 1 || data->count_ph == 1)
@@ -82,7 +82,7 @@ int	init_data(char **argv, t_data *data, int argc)
 		data->num_eat = -1;
 		data->died = 0;
 		data->all_create = 0;
-		pthread_mutex_init(&data->writing, NULL);
+		pthread_mutex_init(&data->write, NULL);
 		if (argc == 6)
 			data->num_eat = ft_atoi(argv[5]);
 		if (data->count_ph <= 0 || data->time_to_die <= 0 || data->time_to_eat
